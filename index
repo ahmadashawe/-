@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>منصة رياضي - تقييم اللاعبين (متكيّف حسب الرياضة)</title>
+  <!-- استيراد خط Tajawal من Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* الألوان الرئيسية */
+      --primary-color: #D32F2F;   /* أحمر رئيسي */
+      --secondary-color: #FFFFFF; /* أبيض */
+      --accent-color: #C62828;    /* أحمر غامق */
+      --text-color: #212121;      /* لون النص */
+      --heading-font: 'Tajawal', sans-serif;
+      --body-font: 'Tajawal', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--body-font);
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      direction: rtl;
+      text-align: right;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-weight: bold;
+      font-size: 1.6rem;
+      font-family: var(--heading-font);
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 500;
+    }
+
+    /* قسم البطل (Hero) */
+    .hero {
+      background-color: var(--secondary-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color); /* العنوان باللون الأحمر */
+      font-family: var(--heading-font);
+    }
+    .hero p {
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    .hero button {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .hero button:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* قسم النبذة */
+    .brief {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .brief h2 {
+      font-family: var(--heading-font);
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    .brief p {
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* قسم المزايا */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+    .feature-box {
+      background-color: #fff;
+      width: 45%;
+      margin: 0.5rem;
+      padding: 1.5rem;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .feature-box:hover {
+      transform: translateY(-3px);
+    }
+    .feature-box h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      font-family: var(--heading-font);
+    }
+    .feature-box p {
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* قسم الشات بوت */
+    .chatbot-section {
+      background-color: #fff;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .chatbot-section h2 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      font-family: var(--heading-font);
+      font-size: 1.5rem;
+    }
+    .chat-window {
+      background: var(--secondary-color);
+      padding: 1rem;
+      border-radius: 6px;
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      direction: rtl;
+      border: 1px solid #ddd;
+    }
+    .user-input {
+      display: flex;
+      gap: 1rem;
+    }
+    .user-input input {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .user-input button {
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .user-input button:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: #eee;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #eee;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">رياضي</div>
+    <nav>
+      <a href="#">الصفحة الرئيسية</a>
+      <a href="#">عنّا</a>
+      <a href="#">تواصل معنا</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>منصة رياضي</h1>
+    <p>
+      حل رقمي متكامل لتنظيم البطولات غير الرسمية واكتشاف المواهب الرياضية 
+      عبر تقييم متقدّم يعتمد على الذكاء الاصطناعي.
+    </p>
+    <button onclick="document.querySelector('.chatbot-section').scrollIntoView({behavior:'smooth'})">
+      ابدأ الآن
+    </button>
+  </section>
+
+  <!-- Brief About Section -->
+  <section class="brief">
+    <h2>لماذا رياضي؟</h2>
+    <p>
+      منصّة رياضي تهدف إلى جمع اللاعبين غير المصنّفين وتوفير بيئة تنافسية عادلة، 
+      مع تقديم نظام تحليل وتصنيف احترافي. ابدأ رحلتك الرياضية معنا الآن واحصل على 
+      تقييم مفصّل لمستواك ونصائح تطويرية من خبراء الرياضة.
+    </p>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-box">
+      <h3>تنظيم البطولات</h3>
+      <p>
+        أطلق وأدِر بطولاتك بكل سهولة، مع تسجيل النتائج والإحصائيات تلقائيًا 
+        للحصول على تجربة تنافسية احترافية.
+      </p>
+    </div>
+    <div class="feature-box">
+      <h3>اكتشاف المواهب</h3>
+      <p>
+        خوارزميات ذكية لتقييم أداء اللاعبين، وعرض التصنيفات بشكل يعكس المستوى الحقيقي 
+        للمهارات والإمكانيات.
+      </p>
+    </div>
+    <div class="feature-box">
+      <h3>تقارير تحليلية</h3>
+      <p>
+        لوحات معلومات تفاعلية تساعد الجهات الرياضية على تتبع تطوّر أداء اللاعبين 
+        واتخاذ قرارات دقيقة.
+      </p>
+    </div>
+    <div class="feature-box">
+      <h3>فرص احتراف</h3>
+      <p>
+        اعرض موهبتك للأندية والأكاديميات الرياضية عبر ملفك الشخصي، 
+        وكن مستعدًا لفرص الاحتراف والانضمام للمسابقات الرسمية.
+      </p>
+    </div>
+  </section>
+
+  <!-- Chatbot Section -->
+  <section class="chatbot-section">
+    <h2>شات رياضي</h2>
+    <div class="chat-window" id="chatWindow">
+      <!-- هنا تظهر رسائل البوت واللاعب -->
+    </div>
+    <div class="user-input">
+      <input type="text" id="userMessage" placeholder="أدخل إجابتك..." />
+      <button onclick="sendMessage()">إرسال</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 منصة رياضي – جميع الحقوق محفوظة</p>
+    <a href="#">تويتر</a> | 
+    <a href="#">لينكدإن</a>
+  </footer>
+
+  <script>
+    /******************************************************************
+     * 1) الأسئلة الأساسية
+     *****************************************************************/
+    const baseQuestions = [
+      "مرحبًا بك في منصة رياضي! ما اسمك الكامل؟",
+      "كم عمرك حاليًا؟",
+      "في أي مدينة أو دولة تمارس نشاطك الرياضي؟",
+      "ما الرياضة التي تلعبها؟ (مثل كرة القدم، الملاكمة، الشطرنج، السباحة...)",
+    ];
+
+    /******************************************************************
+     * 2) الأسئلة المشتركة (جميع الرياضات)
+     *****************************************************************/
+    const generalQuestions = [
+      "منذ متى وأنت تمارس هذه الرياضة؟ (عدد السنوات أو الأشهر)",
+      "هل سبق لك الانتقال من رياضة أخرى؟ إذا نعم، اذكرها باختصار.",
+      "ما أبرز البطولات أو المنافسات التي شاركت فيها؟",
+      "هل حققت ألقابًا أو مراكز متقدمة؟ اذكر أبرز إنجاز أو إنجازين.",
+      "كم مرة تتدرب أسبوعيًا؟ وهل لديك مدرب شخصي أو برنامج تدريبي متخصص؟",
+      "هل تلتزم بأي نظام غذائي أو برنامج لياقة؟ اذكر تفاصيل مختصرة.",
+      "كيف تصف جاهزيتك النفسية قبل المباريات؟ هل تعاني من التوتر أو تتبع تمارين ذهنية؟",
+      "ما هدفك الرياضي على المدى القصير؟ (خلال الأشهر القادمة)",
+      "ما هدفك الرياضي على المدى البعيد؟ (3-5 سنوات)",
+      "ما أبرز نقاط قوتك؟ (فنية، بدنية، ذهنية...)",
+      "ما أبرز نقاط ضعفك أو جوانب تحتاج إلى تحسين؟",
+      "إذا أردت تقديم نفسك كنجم صاعد، كيف تلخص مسيرتك أو ميزاتك في جملتين؟"
+    ];
+
+    /******************************************************************
+     * 3) الأسئلة المتخصصة لكل رياضة (محسّنة ومفصّلة)
+     *****************************************************************/
+    const specializedQuestions = {
+      "كرة القدم": [
+        "ما مركزك في الملعب؟ (مثلاً: مهاجم، لاعب وسط، مدافع، حارس مرمى)",
+        "كم عدد الأهداف أو التمريرات الحاسمة التي حققتها هذا الموسم؟",
+        "هل تركز على الجوانب المهارية (مثل المراوغة) أم الجوانب التكتيكية (مثل التمركز)؟",
+        "ما معدل لياقتك البدنية؟ (مثل مستوى سرعة الجري، القدرة على التحمل...)",
+        "هل تفضل اللعب بأسلوب هجومي أم دفاعي؟ وكيف تقيّم قدراتك التكتيكية بشكل عام؟",
+      ],
+      "كرة السلة": [
+        "ما مركزك في الملعب؟ (مثل صانع ألعاب، جناح، ارتكاز...)",
+        "كم متوسط النقاط أو الريباوند أو التمريرات الحاسمة (الأسيست) لكل مباراة؟",
+        "هل تميل للرميات الثلاثية أم الاختراق والتسجيل تحت السلة؟",
+        "كيف تقيّم قدرتك في الناحية الدفاعية (مثل الاستيلاء على الكرة، قطع التمريرات)؟",
+        "هل تتدرب على الرميات الحرة بشكل خاص؟ وما نسبتك التقريبية فيها؟",
+      ],
+      "كرة اليد": [
+        "هل تلعب كمهاجم/جناح/حارس مرمى؟",
+        "كم متوسط عدد الأهداف أو التصديات لديك في المباراة؟",
+        "كيف تقيّم تعاونك مع زملائك في الجوانب التكتيكية الدفاعية والهجومية؟",
+        "هل تركز على الجانب البدني (اللياقة والقوة) أم الجانب المهاري (التسديد، المراوغة)؟",
+        "ما مدى محافظتك على اللياقة القلبية والتنفسية لأداء مميز طوال المباراة؟",
+      ],
+      "كرة الطائرة": [
+        "هل تلعب كضارب ساحق، معد، ليبرو...؟",
+        "كيف تقيّم مستواك في الاستقبال والإرسال الساحق؟",
+        "هل تركز على الجانب الهجومي (الضربات الساحقة) أم الجوانب الدفاعية (التغطية الأرضية)؟",
+        "كيف تصف مهارات التواصل مع زملائك وتوزيع الأدوار أثناء المباراة؟",
+        "ما مدى قدرتك على قراءة حركة الفريق الخصم والتمركز المناسب في الملعب؟",
+      ],
+      "الملاكمة": [
+        "أي وزن تنافس فيه؟ (مثل وزن خفيف، متوسط، ثقيل...)",
+        "كم عدد المباريات التي خضتها؟ وهل لديك إحصائية بعدد الانتصارات والهزائم؟",
+        "كم مرة فزت بالضربة القاضية (KO) إن وجد؟",
+        "ما الأسلوب الذي تفضله: هجومي يعتمد على الكمات القوية، أم دفاعي بالتركيز على التهرب والصد؟",
+        "هل تركز على تطوير القوة العضلية أم السرعة والخفة؟ وكيف تقيّم لياقتك العامة؟",
+      ],
+      "السباحة": [
+        "ما الأسلوب الأساسي لديك؟ (حرة، فراشة، صدر...)",
+        "ما أفضل زمن حققته في السباق المفضل لديك؟",
+        "هل تفضّل السباحة لمسافات قصيرة (سباقات السرعة) أم طويلة (الماراثون المائي)؟",
+        "كيف تقيّم كفاءتك في إدارة التنفس وتقنية الحركة داخل الماء؟",
+        "هل لديك برامج تدريبية محددة لرفع قوة العضلات وتحسين الانسيابية؟",
+      ],
+      "الشطرنج": [
+        "ما تصنيفك (Elo Rating) الحالي؟",
+        "هل لديك افتتاحيات مفضلة أو أسلوب لعب معين (هجومي، دفاعي، استراتيجي...)؟",
+        "ما أبرز البطولات الشطرنجية التي شاركت فيها؟",
+        "هل تستعين بدروس اونلاين أو برامج تحليل لاستكشاف أخطائك؟",
+        "كم معدل الوقت الذي تقضيه في حل التكتيكات ودراسة الافتتاحيات أسبوعيًا؟",
+      ],
+      // أضف رياضات أخرى أو عدل الأسئلة وفقًا لما تحتاجه
+    };
+
+    /******************************************************************
+     * 4) تخزين الإجابات
+     *****************************************************************/
+    const userData = {
+      name: "",
+      age: "",
+      location: "",
+      sport: "",
+      answers: {}
+    };
+
+    // دمج الأسئلة في قوائم متتابعة
+    let questionsQueue = [...baseQuestions]; 
+    let currentQuestionIndex = 0;
+    let conversationEnded = false;
+    let specializedSetAdded = false; 
+
+    // عناصر واجهة الدردشة
+    const chatWindow = document.getElementById('chatWindow');
+    const userMessageInput = document.getElementById('userMessage');
+
+    // بدء طرح الأسئلة
+    window.onload = () => {
+      addBotMessage(questionsQueue[currentQuestionIndex]);
+    };
+
+    function sendMessage() {
+      if (conversationEnded) return;
+
+      const userMsg = userMessageInput.value.trim();
+      if (!userMsg) return;
+
+      addUserMessage(userMsg);
+      userMessageInput.value = '';
+
+      handleAnswer(currentQuestionIndex, userMsg);
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questionsQueue.length) {
+        setTimeout(() => {
+          addBotMessage(questionsQueue[currentQuestionIndex]);
+        }, 500);
+      } else {
+        setTimeout(() => {
+          finalizeEvaluation();
+        }, 500);
+      }
+    }
+
+    function handleAnswer(index, answer) {
+      // تخزين الإجابات
+      if (index === 0) {
+        userData.name = answer;
+      } else if (index === 1) {
+        userData.age = answer;
+      } else if (index === 2) {
+        userData.location = answer;
+      } else if (index === 3) {
+        // الرياضة
+        userData.sport = answer;
+        // نتحقق هل لدينا أسئلة متخصصة
+        const sportKey = Object.keys(specializedQuestions).find(s => s === answer.trim());
+        if (sportKey && !specializedSetAdded) {
+          specializedSetAdded = true;
+          const specializedQs = specializedQuestions[sportKey];
+          questionsQueue = [
+            ...questionsQueue.slice(0, index+1),
+            ...specializedQs,
+            ...generalQuestions
+          ];
+        } else if (!specializedSetAdded) {
+          // رياضة غير موجودة في القائمة
+          specializedSetAdded = true;
+          questionsQueue = [
+            ...questionsQueue.slice(0, index+1),
+            ...generalQuestions
+          ];
+        }
+      } else {
+        // بقية الأسئلة
+        userData.answers[ questionsQueue[index] ] = answer;
+      }
+    }
+
+    function addBotMessage(message) {
+      chatWindow.innerHTML += `
+        <div style="margin:0.5rem 0;">
+          <strong>البوت:</strong> ${message}
+        </div>
+      `;
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function addUserMessage(message) {
+      chatWindow.innerHTML += `
+        <div>
+          <strong>أنت:</strong> ${message}
+        </div>
+      `;
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    /******************************************************************
+     * 5) حساب التقييم والتقرير النهائي
+     *****************************************************************/
+    function calculateRating() {
+      let score = 0;
+      // 1) سنوات الخبرة
+      let yearsExp = 0;
+      const allQ = Object.keys(userData.answers);
+      for (let q of allQ) {
+        if (q.includes("منذ متى وأنت تمارس")) {
+          yearsExp = parseInt(userData.answers[q]) || 0;
+          break;
+        }
+      }
+      // 2 نقاط للسنة الواحدة (بحد أقصى 20)
+      let expPoints = yearsExp * 2;
+      if (expPoints > 20) expPoints = 20;
+      score += expPoints;
+
+      // 2) مرات التدريب
+      for (let q of allQ) {
+        if (q.includes("كم مرة تتدرب أسبوعيًا")) {
+          const ans = userData.answers[q].toLowerCase();
+          const match = ans.match(/\d+/);
+          if (match) {
+            const times = parseInt(match[0]);
+            // تدريب >= 3
+            if (times >= 3) {
+              score += 10;
+            }
+          }
+          // وجود مدرب/برنامج
+          if (ans.includes("مدرب") || ans.includes("برنامج") || ans.includes("متخصص")) {
+            score += 5;
+          }
+        }
+      }
+
+      // 3) وجود إنجازات
+      for (let q of allQ) {
+        if (q.includes("هل حققت ألقاب") || q.includes("إنجاز")) {
+          const ans = userData.answers[q];
+          if (ans.length > 2 && !ans.includes("لا") && !ans.includes("لم")) {
+            score += 15;
+          }
+        }
+      }
+
+      // 4) نظام غذائي
+      for (let q of allQ) {
+        if (q.includes("هل تلتزم بأي نظام غذائي")) {
+          const ans = userData.answers[q].toLowerCase();
+          if (!ans.includes("لا") && ans.length > 2) {
+            score += 5;
+          }
+        }
+      }
+
+      // ضبط الرينج (0-100)
+      if (score > 100) score = 100;
+      if (score < 0) score = 0;
+
+      // تصنيف
+      let level = "مبتدئ";
+      if (score > 70) {
+        level = "محترف";
+      } else if (score > 35) {
+        level = "متوسط";
+      }
+      return { score, level };
+    }
+
+    function finalizeEvaluation() {
+      conversationEnded = true;
+      
+      // حساب التقييم
+      const { score, level } = calculateRating();
+
+      // تقرير نصي
+      let detailAnalysis = `
+        <strong>تقرير اللاعب الاحترافي (متكيّف بحسب الرياضة)</strong><br/><br/>
+        <ul>
+          <li><strong>الاسم والعمر:</strong> ${userData.name} (${userData.age} سنة)</li>
+          <li><strong>الموقع:</strong> ${userData.location}</li>
+          <li><strong>الرياضة:</strong> ${userData.sport}</li>
+        </ul>
+
+        <strong>التقييم الرقمي:</strong> ${score} من 100<br/>
+        <strong>التصنيف المبدئي:</strong> ${level}<br/><br/>
+      `;
+
+      // عرض بقية الإجابات
+      const keys = Object.keys(userData.answers);
+      if (keys.length > 0) {
+        detailAnalysis += "<strong>إجابات إضافية:</strong><ul>";
+        for (let question of keys) {
+          detailAnalysis += `<li><strong>${question}</strong><br/>الإجابة: ${userData.answers[question]}</li>`;
+        }
+        detailAnalysis += "</ul>";
+      }
+
+      // توصيات
+      detailAnalysis += "<br/><strong>توصيات وملاحظات:</strong><ul>";
+      if (level === "مبتدئ") {
+        detailAnalysis += `
+          <li>التركيز على اكتساب الأساسيات الفنية والبدنية.</li>
+          <li>المشاركة في منافسات محلية لاكتساب مزيد من الخبرة.</li>
+        `;
+      } else if (level === "متوسط") {
+        detailAnalysis += `
+          <li>رفع وتيرة التدريبات وتنويع البطولات للحصول على خبرة أوسع.</li>
+          <li>العمل على الجوانب التكتيكية والذهنية لتحسين الأداء.</li>
+        `;
+      } else {
+        // محترف
+        detailAnalysis += `
+          <li>السعي للانضمام لأكاديميات أو أندية احترافية أعلى مستوى.</li>
+          <li>تطوير الجوانب العقلية والبدنية المتقدمة، والاستفادة من المتخصصين.</li>
+        `;
+      }
+      detailAnalysis += "</ul>";
+
+      addBotMessage(detailAnalysis);
+    }
+  </script>
+
+</body>
+</html>
